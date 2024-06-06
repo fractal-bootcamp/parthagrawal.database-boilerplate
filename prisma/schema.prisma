@@ -20,12 +20,11 @@ model Book {
   ISBN   String
 
   // keys
-  authorID   String
-  genreID    String
-  memberID   String // member that currently has this book checked out 
+  authorId   String
+  memberId   String // member that currently has this book checked out 
   //relations
-  bookAuthor Author       @relation(fields: [authorID], references: [id])
-  bookMember Member       @relation(fields: [memberID], references: [id])
+  bookAuthor Author       @relation(fields: [authorId], references: [id])
+  bookMember Member       @relation(fields: [memberId], references: [id])
   genres     BookGenres[]
   genreId    String?
   Genre      Genre?       @relation(fields: [genreId], references: [id])
