@@ -18,4 +18,29 @@ model Book {
   name   String
   author String
   ISBN   String
+
+  // keys
+  authorID String
+
+  //relations
+  bookAuthor Author @relation(fields: [authorID], references: [id])
+}
+
+model Author {
+  id        String @id @default(cuid())
+  name      String
+  biography String
+  Book      Book[]
+}
+
+model Genre {
+  id   String @id @default(cuid())
+  name String
+}
+
+model Member {
+  id      String @id @default(cuid())
+  name    String
+  email   String
+  address String
 }
