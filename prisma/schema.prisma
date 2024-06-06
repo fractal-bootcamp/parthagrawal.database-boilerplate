@@ -18,4 +18,47 @@ model Book {
   name   String
   author String
   ISBN   String
+
+  // keys
+  authorId   String
+  memberId   String // member that currently has this book checked out 
+  //relations
+  bookAuthor Author       @relation(fields: [authorId], references: [id])
+  bookMember Member       @relation(fields: [memberId], references: [id])
+  genres     BookGenres[]
+  genreId    String?
+  Genre      Genre?       @relation(fields: [genreId], references: [id])
 }
+
+model Author {
+  id        String @id @default(cuid())
+  name      String
+  biography String
+  Book      Book[]
+}
+
+model Genre {
+  id    String       @id @default(cuid())
+  name  String
+  books BookGenres[]
+  Book  Book[]
+}
+
+model Member {
+  id      String @id @default(cuid())
+  name    String
+  email   String
+  address String
+  Book    Book[]
+}
+
+model BookGenres {
+  id      String @id @default(cuid())
+  bookId  String
+  genreId String
+  Book    Book   @relation(fields: [bookId], references: [id])
+  Genre   Genre  @relation(fields: [genreId], references: [id])
+}
+
+// Search BookGenres for all genreIDs where bookID is myID
+// search genre for names where id = genreIDs
