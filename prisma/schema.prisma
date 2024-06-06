@@ -20,10 +20,13 @@ model Book {
   ISBN   String
 
   // keys
-  authorID String
-
+  authorID   String
+  genreID    String
+  memberID   String // member that currently has this book checked out 
   //relations
   bookAuthor Author @relation(fields: [authorID], references: [id])
+  bookGenre  Genre  @relation(fields: [genreID], references: [id])
+  bookMember Member @relation(fields: [memberID], references: [id])
 }
 
 model Author {
@@ -36,6 +39,7 @@ model Author {
 model Genre {
   id   String @id @default(cuid())
   name String
+  Book Book[]
 }
 
 model Member {
@@ -43,4 +47,5 @@ model Member {
   name    String
   email   String
   address String
+  Book    Book[]
 }
